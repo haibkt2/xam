@@ -1,0 +1,45 @@
+1. Đếm số lượng phần trong list thõa mãn điều kiện nào đó 
+long countNum = items.stream() // type is long
+    .filter(//condition filter)
+    .count();
+2. Xử lý các phần tử trong luồng stream để trả về 1 value đơn lẻ (duyệt và xử lý hết tất cả các phần tử và trả về 1 kết quả)
+int total = items.stream()
+		             .reduce(1, (x1, x2) -> x1  + x2);
+		             //.get(); // làm việc với optional khi for case list empty
+3. Copy list A from List B có giới hạn
+4. Method reference
+Cho phép bạn tham chiếu tới một method hoặc một constructor mà không cần thực thi chúng
+//Interface
+public interface myInterface {
+	public int doSomething(int a, int b);
+}
+//Class có các method 
+public class Execute {
+	  public static int sum(int a, int b) {
+	      return a + b;
+	  }
+	  public static int minus(int a, int b) {
+	      return a - b;
+	  }
+}
+// Class main
+public class Main_ {
+	public static int action(int a, int b, myInterface func) {
+		return func.doSomething(a, b);
+	}
+	public static void main(String[] args) {
+		int a = 100;
+		int b = 30;
+		int c = action(a, b, Execute::sum);
+		System.out.println("c = " + c);
+		// == 70
+		int d = action(a, b, Execute::minus);
+		System.out.println("d = " + d);
+		// ==> 70
+		int e = action(a, b, Execute::subtractExact);
+		System.out.println("e = " + e);
+		// ==> 30
+		int f = action(a, b, Execute::min);
+		System.out.println("f = " + f);
+	}
+}
